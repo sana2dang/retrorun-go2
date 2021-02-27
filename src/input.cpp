@@ -81,7 +81,7 @@ void core_input_poll(void)
 	input_gamepad_read();
     go2_input_battery_read(input, &batteryState);
 
-    if (go2_input_state_button_get(gamepadState, Go2InputButton_F1) == ButtonState_Pressed &&
+    if (go2_input_state_button_get(gamepadState, Go2InputButton_F2) == ButtonState_Pressed &&
         go2_input_state_button_get(gamepadState, Go2InputButton_F6) == ButtonState_Pressed)
     {
         input_exit_requested = true;
@@ -242,7 +242,7 @@ int16_t core_input_state(unsigned port, unsigned device, unsigned index, unsigne
                 case RETRO_DEVICE_ID_JOYPAD_L2:
                     if (has_triggers)
                     {
-                        return go2_input_state_button_get(gamepadState, Go2InputButton_TriggerLeft);
+                        return go2_input_state_button_get(gamepadState, Go2InputButton_TopLeft);
                     }
                     else
                     {
@@ -254,7 +254,7 @@ int16_t core_input_state(unsigned port, unsigned device, unsigned index, unsigne
                 case RETRO_DEVICE_ID_JOYPAD_R2:
                     if (has_triggers)
                     {
-                        return go2_input_state_button_get(gamepadState, Go2InputButton_TriggerRight);
+                        return go2_input_state_button_get(gamepadState, Go2InputButton_TopRight);
                     }
                     else
                     {
