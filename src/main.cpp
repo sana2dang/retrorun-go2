@@ -333,9 +333,14 @@ static bool core_environment(unsigned cmd, void* data)
             }
             else if (strcmp(var->key, "reicast_internal_resolution") == 0)
             {
-                var->value = "320x240";
+                var->value = "640x480";
                 return true;
             }            
+            else if (strcmp(var->key, "reicast_anisotropic_filtering") == 0)
+            {
+                var->value = "off";
+                return true;
+            }
             else
             {
                 varmap_t::iterator iter = variables.find(var->key);
@@ -837,14 +842,14 @@ int main(int argc, char *argv[])
 
         elapsed += seconds + milliseconds;
 
-        if (elapsed >= 1.0)
+        /*if (elapsed >= 1.0)
         {
             int fps = (int)(totalFrames / elapsed);
             printf("FPS: %i, BATT: %d [%s]\n", fps, batteryState.level, batteryStateDesc[batteryState.status]);
 
             totalFrames = 0;
             elapsed = 0;
-        }
+        }*/
     }
 
     SaveSram(sramPath);
