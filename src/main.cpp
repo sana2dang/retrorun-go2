@@ -336,12 +336,36 @@ static bool core_environment(unsigned cmd, void* data)
                 var->value = "640x480";
                 return true;
             }            
-            else if (strcmp(var->key, "reicast_anisotropic_filtering") == 0)
+            else if (strcmp(var->key, "reicast_anisotropic_filtering") == 4)
             {
                 var->value = "off";
                 return true;
             }
-            else
+            else if (strcmp(var->key, "reicast_enable_dsp") == 1)
+            {
+                var->value = "disabled";
+                return true;
+            }
+            else if (strcmp(var->key, "reicast_synchronous_rendering") == 1)
+            {
+                var->value = "disabled";
+                return true;
+            }
+            else if (strcmp(var->key, "reicast_enable_rtt") == 1)
+            {
+                var->value = "disabled";
+                return true;
+            }
+            else if (strcmp(var->key, "reicast_enable_rttb") == 1)
+            {
+                var->value = "disabled";
+                return true;
+            }
+            else if (strcmp(var->key, "reicast_delay_frame_swapping") == 1)
+            {
+                var->value = "disabled";
+                return true;
+            }            else
             {
                 varmap_t::iterator iter = variables.find(var->key);
                 if (iter != variables.end())
