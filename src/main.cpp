@@ -334,6 +334,7 @@ static bool core_environment(unsigned cmd, void* data)
             else if (strcmp(var->key, "reicast_internal_resolution") == 0)
             {
                 var->value = "640x480";
+                printf("I got the resolution set yo");
                 return true;
             }            
             else if (strcmp(var->key, "reicast_anisotropic_filtering") == 4)
@@ -362,6 +363,21 @@ static bool core_environment(unsigned cmd, void* data)
                 return true;
             }
             else if (strcmp(var->key, "reicast_delay_frame_swapping") == 1)
+            {
+                var->value = "disabled";
+                return true;
+            }
+            else if (strcmp(var->key, "reicast_alpha_sorting") == 1)
+            {
+                var->value = "per-strip";
+                return true;
+            }
+            else if (strcmp(var->key, "reicast_div_matching") == 0)
+            {
+                var->value = "enabled";
+                return true;
+            }
+            else if (strcmp(var->key, "reicast_texupscale") == 1)
             {
                 var->value = "disabled";
                 return true;
