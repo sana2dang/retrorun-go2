@@ -337,39 +337,40 @@ static bool core_environment(unsigned cmd, void* data)
                 printf("I got the resolution set yo");
                 return true;
             }            
-            else if (strcmp(var->key, "reicast_anisotropic_filtering") == 4)
+            else if (strcmp(var->key, "reicast_anisotropic_filtering") == 0)
             {
                 var->value = "off";
                 return true;
             }
-            else if (strcmp(var->key, "reicast_enable_dsp") == 1)
+            else if (strcmp(var->key, "reicast_enable_dsp") == 0)
             {
                 var->value = "disabled";
                 return true;
             }
-            else if (strcmp(var->key, "reicast_synchronous_rendering") == 1)
+            else if (strcmp(var->key, "reicast_synchronous_rendering") == 0)
             {
                 var->value = "disabled";
                 return true;
             }
-            else if (strcmp(var->key, "reicast_enable_rtt") == 1)
+            else if (strcmp(var->key, "reicast_enable_rtt") == 0)
             {
                 var->value = "disabled";
                 return true;
             }
-            else if (strcmp(var->key, "reicast_enable_rttb") == 1)
+            else if (strcmp(var->key, "reicast_enable_rttb") == 0)
             {
                 var->value = "disabled";
                 return true;
             }
-            else if (strcmp(var->key, "reicast_delay_frame_swapping") == 1)
+            else if (strcmp(var->key, "reicast_delay_frame_swapping") == 0)
             {
                 var->value = "disabled";
                 return true;
             }
-            else if (strcmp(var->key, "reicast_alpha_sorting") == 1)
+            else if (strcmp(var->key, "reicast_alpha_sorting") == 0)
             {
                 var->value = "per-strip";
+                printf("Alpha sorting should be set to per strip\n");
                 return true;
             }
             else if (strcmp(var->key, "reicast_div_matching") == 0)
@@ -377,9 +378,10 @@ static bool core_environment(unsigned cmd, void* data)
                 var->value = "enabled";
                 return true;
             }
-            else if (strcmp(var->key, "reicast_texupscale") == 1)
+            else if (strcmp(var->key, "reicast_texupscale") == 0)
             {
                 var->value = "disabled";
+                printf("Texupscale should be off\n");
                 return true;
             }
             else
