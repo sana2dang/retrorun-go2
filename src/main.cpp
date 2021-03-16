@@ -403,8 +403,8 @@ static bool core_environment(unsigned cmd, void* data)
             }
             else if (strcmp(var->key, "yabasanshiro_rbg_use_compute_shader") == 0)
             {
-                var->value = "enabled";
-                printf("Compute shader should be on\n");
+                var->value = "disabled";
+                printf("Compute shader should be off\n");
                 return true;
             }
             else if (strcmp(var->key, "yabasanshiro_sh2coretype") == 0)
