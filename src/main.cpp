@@ -334,7 +334,6 @@ static bool core_environment(unsigned cmd, void* data)
             else if (strcmp(var->key, "reicast_internal_resolution") == 0)
             {
                 var->value = "640x480";
-                printf("I got the resolution set yo");
                 return true;
             }            
             else if (strcmp(var->key, "reicast_anisotropic_filtering") == 0)
@@ -369,19 +368,67 @@ static bool core_environment(unsigned cmd, void* data)
             }
             else if (strcmp(var->key, "reicast_alpha_sorting") == 0)
             {
-                var->value = "per-strip";
+                var->value = "per-strip (fast, least accurate)";
                 printf("Alpha sorting should be set to per strip\n");
                 return true;
             }
             else if (strcmp(var->key, "reicast_div_matching") == 0)
             {
-                var->value = "enabled";
+                var->value = "auto";
                 return true;
             }
             else if (strcmp(var->key, "reicast_texupscale") == 0)
             {
-                var->value = "disabled";
+                var->value = "off";
                 printf("Texupscale should be off\n");
+                return true;
+            }
+            else if (strcmp(var->key, "reicast_enable_purupuru") == 0)
+            {
+                var->value = "enabled";
+                printf("Vibration support should be on\n");
+                return true;
+            }
+            else if (strcmp(var->key, "yabasanshiro_addon_cart") == 0)
+            {
+                var->value = "4M_extended_ram";
+                printf("4M extended ram enabled.\n");
+                return true;
+            }
+            else if (strcmp(var->key, "yabasanshiro_frameskip") == 0)
+            {
+                var->value = "enabled";
+                printf("Frameskip should be on\n");
+                return true;
+            }
+            else if (strcmp(var->key, "yabasanshiro_rbg_use_compute_shader") == 0)
+            {
+                var->value = "enabled";
+                printf("Compute shader should be on\n");
+                return true;
+            }
+            else if (strcmp(var->key, "yabasanshiro_sh2coretype") == 0)
+            {
+                var->value = "dynarec";
+                printf("Dynarec should be on\n");
+                return true;
+            }
+            else if (strcmp(var->key, "yabasanshiro_rbg_resolution_mode") == 0)
+            {
+                var->value = "original";
+                printf("Original Rbg resolution should be on\n");
+                return true;
+            }
+            else if (strcmp(var->key, "yabasanshiro_resolution_mode") == 0)
+            {
+                var->value = "original";
+                printf("Original resolution should be on\n");
+                return true;
+            }
+            else if (strcmp(var->key, "yabasanshiro_polygon_mode") == 0)
+            {
+                var->value = "perspective_correction";
+                printf("Perspective correction resolution should be on for polygon mode\n");
                 return true;
             }
             else
