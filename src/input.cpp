@@ -31,12 +31,17 @@ extern int opt_backlight;
 extern int opt_volume;
 
 bool input_exit_requested = false;
+bool input_reset_requested = false;
+bool input_pause_requested = false;
+bool input_ffwd_requested = false;
 go2_battery_state_t batteryState;
 
 static go2_input_state_t* gamepadState;
 static go2_input_state_t* prevGamepadState;
 static go2_input_t* input;
 static bool has_triggers = false;
+
+static constexpr go2_input_button_t Hotkey = Go2InputButton_F2;
 
 
 void input_gamepad_read()
@@ -92,41 +97,32 @@ void core_input_poll(void)
     //     screenshot_requested = true;
     // }
 
-    if (go2_input_state_button_get(gamepadState, Go2InputButton_F4) == ButtonState_Pressed)
+    if (go2_input_state_button_get(gamepadState, Hotkey) == ButtonState_Pressed)
     {
-        if (go2_input_state_button_get(gamepadState, Go2InputButton_DPadUp) == ButtonState_Pressed &&
-            go2_input_state_button_get(prevGamepadState, Go2InputButton_DPadUp) == ButtonState_Released)
+        if (go2_input_state_button_get(gamepadState, Go2InputButton_B) == ButtonState_Pressed &&
+            go2_input_state_button_get(prevGamepadState, Go2InputButton_B) == ButtonState_Released)
         {
-            opt_backlight += 10;
-            if (opt_backlight > 100) opt_backlight = 100;
-            
-            printf("Backlight+ = %d\n", opt_backlight);
+            input_ffwd_requested = !input_ffwd_requested;
+            printf("Fast-forward %s\n", input_ffwd_requested ? "on" : "off");
         }
-        else if (go2_input_state_button_get(gamepadState, Go2InputButton_DPadDown) == ButtonState_Pressed &&
-                 go2_input_state_button_get(prevGamepadState, Go2InputButton_DPadDown) == ButtonState_Released)
+        if (go2_input_state_button_get(gamepadState, Go2InputButton_A) == ButtonState_Pressed &&
+            go2_input_state_button_get(prevGamepadState, Go2InputButton_A) == ButtonState_Released)
         {
-            opt_backlight -= 10;
-            if (opt_backlight < 1) opt_backlight = 1;
-
-            printf("Backlight- = %d\n", opt_backlight);
+            input_pause_requested = !input_pause_requested;
+            printf("%s\n", input_pause_requested ? "Paused" : "Un-paused");
         }
-
-        if (go2_input_state_button_get(gamepadState, Go2InputButton_DPadRight) == ButtonState_Pressed &&
-            go2_input_state_button_get(prevGamepadState, Go2InputButton_DPadRight) == ButtonState_Released)
+        /*if (go2_input_state_button_get(gamepadState, Go2InputButton_X) == ButtonState_Pressed &&
+            go2_input_state_button_get(prevGamepadState, Go2InputButton_X) == ButtonState_Released)
         {
-            opt_volume += 5;
-            if (opt_volume > 100) opt_volume = 100;
-
-            printf("Volume+ = %d\n", opt_volume);
-        }
-        else if (go2_input_state_button_get(gamepadState, Go2InputButton_DPadLeft) == ButtonState_Pressed &&
-                 go2_input_state_button_get(prevGamepadState, Go2InputButton_DPadLeft) == ButtonState_Released)
+            input_reset_requested = true;
+            printf("Reset requested\n");
+        }*/
+        /*if (go2_input_state_button_get(gamepadState, Go2InputButton_Y) == ButtonState_Pressed &&
+            go2_input_state_button_get(prevGamepadState, Go2InputButton_Y) == ButtonState_Released)
         {
-            opt_volume -= 5;
-            if (opt_volume < 0) opt_volume = 0;
-
-            printf("Volume- = %d\n", opt_volume);
-        }
+            screenshot_requested = true;
+            printf("Screenshot requested\n");
+        }*/
     }
 }
 
@@ -136,6 +132,9 @@ int16_t core_input_state(unsigned port, unsigned device, unsigned index, unsigne
 
     // if (port || index || device != RETRO_DEVICE_JOYPAD)
     //         return 0;
+
+    if (go2_input_state_button_get(gamepadState, Hotkey) == ButtonState_Pressed)
+        return 0;
 
     if (!Retrorun_UseAnalogStick)
     {

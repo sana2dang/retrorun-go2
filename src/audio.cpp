@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "audio.h"
+#include "input.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -73,6 +74,9 @@ static void SetVolume()
 
 void core_audio_sample(int16_t left, int16_t right)
 {
+    if (input_ffwd_requested)
+        return;
+
     SetVolume();
 
 	u_int32_t* ptr = (u_int32_t*)audioBuffer;
@@ -89,7 +93,7 @@ size_t core_audio_sample_batch(const int16_t * data, size_t frames)
 {
     SetVolume();
 
-    if (audioFrameCount + frames > audioFrameLimit)
+    if (audioFrameCount + (int)frames > audioFrameLimit)
     {
         go2_audio_submit(audio, (const short*)audioBuffer, audioFrameCount);
         audioFrameCount = 0;
