@@ -5,7 +5,7 @@ Use this for the RK2020.  For the RG351, use the master branch.  For the RGB10, 
 Build
 ======
 ```
-git clone https://github.com/christianhaitian/retrorun-go2.git -b rk2020
+git clone -b rk2020 https://github.com/christianhaitian/retrorun-go2.git
 make
 strip retrorun
 ```
