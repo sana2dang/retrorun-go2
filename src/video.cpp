@@ -62,6 +62,7 @@ int prevBacklight;
 
 extern retro_hw_context_reset_t retro_context_reset;
 
+int go2_w,go2_h;
 
 void video_configure(const struct retro_game_geometry* geom)
 {
@@ -86,7 +87,9 @@ void video_configure(const struct retro_game_geometry* geom)
     prevBacklight = opt_backlight;    
 
 
-    aspect_ratio = opt_aspect == 0.0f ? geom->aspect_ratio : opt_aspect;
+    //aspect_ratio = opt_aspect == 0.0f ? geom->aspect_ratio : opt_aspect;
+    aspect_ratio = opt_aspect;
+
 
     if (isOpenGL)
     {        
@@ -201,6 +204,7 @@ void video_configure(const struct retro_game_geometry* geom)
         
         //printf("video_configure: rect=%d, %d, %d, %d\n", y, x, h, w);
     }
+	
 }
 
 void video_deinit()
